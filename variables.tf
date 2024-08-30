@@ -244,6 +244,18 @@ variable "binary_auth_enabled" {
   default     = false
 }
 
+# https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/container_cluster#enable_components
+variable "monitoring_components" {
+  description = "The GKE components exposing metrics. Supported values include: SYSTEM_COMPONENTS, APISERVER, SCHEDULER, CONTROLLER_MANAGER, STORAGE, HPA, POD, DAEMONSET, DEPLOYMENT, STATEFULSET, KUBELET, CADVISOR and DCGM."
+  type        = set(string)
+  default     = ["SYSTEM_COMPONENTS"]
+
+  validation {
+    condition     = length(setsubtract(var.monitoring_components, ["SYSTEM_COMPONENTS", "APISERVER", "SCHEDULER", "CONTROLLER_MANAGER", "STORAGE", "HPA", "POD", "DAEMONSET", "DEPLOYMENT", "STATEFULSET", "KUBELET", "CADVISOR", "DCGM"])) == 0
+    error_message = "Accepted values include: SYSTEM_COMPONENTS, APISERVER, SCHEDULER, CONTROLLER_MANAGER, STORAGE, HPA, POD, DAEMONSET, DEPLOYMENT, STATEFULSET, KUBELET, CADVISOR and DCGM."
+  }
+}
+
 variable "enable_managed_prometheus" {
   description = "Enable Managed Prometheus."
   type        = bool
