@@ -222,6 +222,12 @@ variable "filestore_csi_driver_enabled" {
   default     = false
 }
 
+variable "gcs_fuse_csi_driver_enabled" {
+  description = "When enabled, allows gcs buckets to be mounted as ephemeral or persistent volumes using the FUSE csi driver"
+  type        = bool
+  default     = false
+}
+
 variable "horizontal_pod_autoscaling_disabled" {
   description = "When enabled, allows increase/decrease number of replica pods based on resource usage of existing pods."
   type        = bool

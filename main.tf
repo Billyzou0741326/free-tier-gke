@@ -157,6 +157,10 @@ resource "google_container_cluster" "primary" {
     config_connector_config {
       enabled = var.config_connector_enabled
     }
+
+    gcs_fuse_csi_driver_config {
+      enabled = var.gcs_fuse_csi_driver_enabled
+    }
   }
 }
 
